@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { postSmurf } from '../actions';
 
 
@@ -22,8 +23,8 @@ class AddForm extends React.Component {
     }
 
     //error div in case there is an error.
-    if ( props) {
-        return <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{props.error} </div>;
+    if ( error) {
+        return <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{error} </div>;
     };
 
     render() {
@@ -51,7 +52,15 @@ class AddForm extends React.Component {
     }
 }
 
-export default AddForm;
+const mapStateToProps = () => {
+    return {
+        smurfs: this.state.smurfs,
+        isFetching: this.state.isFetching,
+        error: this.state.error,
+    }
+}
+
+export default connect(mapStateToProps, {postSmurf})(AddForm);
 
 //Task List:
 //1. Add in all necessary import components and library methods.

@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { fetchSmurf } from '../actions';
 
 export class SmurfDisplay extends React.Component {
 
     componentDidMount() {
-       fetchSmurf()
+       this.props.fetchSmurf()
     }
 
     //if app is loading this will render loading text
@@ -29,7 +30,15 @@ export class SmurfDisplay extends React.Component {
     }
 }
 
-export default SmurfDisplay;
+const mapStateToProps = () => {
+    return {
+        smurfs: this.state.smurfs,
+        isFetching: this.state.isFetching,
+        error: this.state.error,
+    }
+}
+
+export default connect(mapStateToProps, {fetchSmurf})(SmurfDisplay);
 
 //Task List:
 //1. Import in all needed components and library methods.

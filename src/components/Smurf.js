@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Smurf extends React.Component {
     render() {
@@ -9,7 +10,15 @@ class Smurf extends React.Component {
     }
 }
 
-export default Smurf;
+const mapStateToProps = () => {
+    return {
+        smurfs: this.state.smurfs,
+        isFetching: this.state.isFetching,
+        error: this.state.error,
+    }
+}
+
+export default connect(mapStateToProps)(Smurf);
 
 //Task List:
 //1. Access smurf to be displayed through props.
