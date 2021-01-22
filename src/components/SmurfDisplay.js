@@ -1,9 +1,30 @@
 import React from 'react';
+import { fetchSmurf } from '../actions';
 
 export class SmurfDisplay extends React.Component {
+
+    componentDidMount() {
+       fetchSmurf()
+    }
+
+    //if app is loading this will render loading text
+    if (isFetching) {
+        return <p>Loading...</p>
+    }
+
     render() {
-        return(<div>
-            
+        return(
+        <div>
+            {this.props.smurfs.map((smurf) => {
+                return (
+                    <div key = {smurf.name}>
+                        <h3>Name: {smurf.name}</h3>
+                        <p>Position: {smurf.position}</p>
+                        <p>Nickname: {smurf.nickname}</p>
+                        <p>Description {smurf.description}</p>
+                    </div>
+                )
+            })}
         </div>)
     }
 }

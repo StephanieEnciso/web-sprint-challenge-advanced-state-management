@@ -14,13 +14,17 @@ import axios from 'axios';
 //              - return action object setting error text
 //4. Any other actions you deem nessiary to complete application.
 
-// action variables
-
+// action variables for get request
 export const FETCH_SMURF_START = 'FETCH_SMURF_START';
 export const FETCH_SMURF_SUCCESS = 'FETCH_SMURF_SUCCESS';
 export const FETCH_SMURF_FAILURE = 'FETCH_SMURF_FAILURE';
 
-// action creator axios request
+// action variables for post request
+export const POST_SMURF_START = 'POST_SMURF_START';
+export const POST_SMURF_SUCCESS = 'POST_SMURF_SUCCESS';
+export const POST_SMURF_FAILURE = 'POST_SMURF_FAILURE';
+
+// thunk action for axios get request
 
 export const fetchSmurf = () => dispatch => {
     dispatch({ type:FETCH_SMURF_START});
@@ -33,5 +37,20 @@ export const fetchSmurf = () => dispatch => {
         .catch(err => {
             console.log(err)
             dispatch({ type:FETCH_SMURF_FAILURE, payload:err});
+        });
+}
+
+// thunk action for axios post request
+export const postSmurf = (smurf) => dispatch => {
+    dispatch({ type:POST_SMURF_START});
+    axios 
+        .post("http://localhost:3333/smurfs", smurf)
+        .then((response)=>{
+            console.log(response.data);
+            dispatch({ type:POST_SMURF_SUCCESS, payload: response.data});
+        })
+        .catch(err => {
+            console.log(err)
+            dispatch({ type:POST_SMURF_FAILURE, payload:err});
         });
 }

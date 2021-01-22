@@ -1,17 +1,50 @@
 import React from 'react';
+import { postSmurf } from '../actions';
+
 
 class AddForm extends React.Component {
+
+    state = {
+        name: '',
+        position: '',
+        nickname: '',
+        description: '',
+    }
+  //event handlers to change state and sumit a new smurf
+    handleChange = (event) => {
+        const value = event.target.value;
+        this.setState(value);
+    };
+    
+    handleSubmit = (event) => {
+        event.preventDefault();
+        postSmurf(this.state)
+    }
+
+    //error div in case there is an error.
+    if ( props) {
+        return <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{props.error} </div>;
+    };
 
     render() {
         return(<section>
             <h2>Add Smurf</h2>
-            <form>
+            <form onsub>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
+                    <input onChange={this.handleChange} name="name" id="name" value = {this.state.name}/>
+                    <label htmlFor="position">Position:</label><br/>
+                    <input onChange={this.handleChange} name="position" id="position" value = {this.state.position} />
+                    <label htmlFor="nickname">Nickname:</label><br/>
+                    <input onChange={this.handleChange} name="nickname" id="nickname" value = {this.state.nickname} />
+                    <label htmlFor="description">Description:</label><br/>
+                    <input onChange={this.handleChange} name="description" id="description" value = {this.state.description} />
                 </div>
-
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
+            
+                { 
+                  // <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{props.error} </div>
+                  //moved above to ensure the error displays only when there is an error
+                }
                 <button>Submit Smurf</button>
             </form>
         </section>);
