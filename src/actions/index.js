@@ -50,7 +50,7 @@ export const postSmurf = (smurf) => dispatch => {
             dispatch({ type:POST_SMURF_SUCCESS, payload: response.data});
         })
         .catch(err => {
-            console.log(err.status)
-            dispatch({ type:POST_SMURF_FAILURE, payload:err.data});
+            console.log(err)
+            dispatch({ type:POST_SMURF_FAILURE, payload:"Must fill out name, position, and nickname."});
         });
 }

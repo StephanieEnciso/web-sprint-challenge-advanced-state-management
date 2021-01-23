@@ -26,7 +26,7 @@ class AddForm extends React.Component {
     //error div in case there is an error.
      if (this.props.error) {
         return <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{this.props.error} </div>;
-     }else {
+     }
 
     
         return(<section>
@@ -51,7 +51,7 @@ class AddForm extends React.Component {
                 <button>Submit Smurf</button>
             </form>
         </section>);
-        }
+        
     }
 }
 
