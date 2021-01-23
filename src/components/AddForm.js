@@ -13,24 +13,25 @@ class AddForm extends React.Component {
     }
   //event handlers to change state and sumit a new smurf
     handleChange = (event) => {
-        const value = event.target.value;
-        this.setState(value);
+        this.setState({...this.state,
+            [event.target.name]: event.target.value,
+        });
     };
     
     handleSubmit = (event) => {
         event.preventDefault();
-        postSmurf(this.state)
+        this.props.postSmurf(this.state)
     }
-
-    //error div in case there is an error.
-    if ( error) {
-        return <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{error} </div>;
-    };
-
     render() {
+    //error div in case there is an error.
+     if (this.props.error) {
+        return <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{this.props.error} </div>;
+     }else {
+
+    
         return(<section>
             <h2>Add Smurf</h2>
-            <form onsub>
+            <form onSubmit = {this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label><br/>
                     <input onChange={this.handleChange} name="name" id="name" value = {this.state.name}/>
@@ -42,21 +43,23 @@ class AddForm extends React.Component {
                     <input onChange={this.handleChange} name="description" id="description" value = {this.state.description} />
                 </div>
             
-                { 
-                  // <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:{props.error} </div>
+                 {
+                 //<div data-testid="errorAlert" className="alert alert-danger" role="alert">Error:</div>
                   //moved above to ensure the error displays only when there is an error
                 }
+                
                 <button>Submit Smurf</button>
             </form>
         </section>);
+        }
     }
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
     return {
-        smurfs: this.state.smurfs,
-        isFetching: this.state.isFetching,
-        error: this.state.error,
+        smurfs: state.smurfs,
+        isFetching: state.isFetching,
+        error: state.error,
     }
 }
 

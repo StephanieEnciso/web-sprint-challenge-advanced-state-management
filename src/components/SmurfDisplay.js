@@ -1,40 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchSmurf } from '../actions';
+import Smurf from './Smurf';
 
 export class SmurfDisplay extends React.Component {
 
     componentDidMount() {
        this.props.fetchSmurf()
     }
-
-    //if app is loading this will render loading text
-    if (isFetching) {
-        return <p>Loading...</p>
-    }
-
     render() {
+    //if app is loading this will render loading text
+    if (this.props.isFetching) {
+        return <p>Loading...</p>
+    } else {
         return(
         <div>
-            {this.props.smurfs.map((smurf) => {
-                return (
-                    <div key = {smurf.name}>
-                        <h3>Name: {smurf.name}</h3>
-                        <p>Position: {smurf.position}</p>
-                        <p>Nickname: {smurf.nickname}</p>
-                        <p>Description {smurf.description}</p>
-                    </div>
-                )
-            })}
+            <Smurf smurf = {this.props.smurfs}/>
         </div>)
+        }
     }
 }
 
-const mapStateToProps = () => {
+const mapStateToProps = (state) => {
     return {
-        smurfs: this.state.smurfs,
-        isFetching: this.state.isFetching,
-        error: this.state.error,
+        smurfs: state.smurfs,
+        isFetching: state.isFetching,
+        error: state.error,
     }
 }
 
